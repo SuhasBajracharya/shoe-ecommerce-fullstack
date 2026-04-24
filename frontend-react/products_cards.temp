@@ -1,0 +1,210 @@
+          <div class="product-card">
+            <div class="product-badge new">New</div>
+            <div class="product-image">
+              <img src="images/runnungshoes.webp">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Running</div>
+              <h3><a href="products/runnningshoes.html">Running Shoes</a></h3>
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-count">(24)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">Rs 12999.99</span>
+                <span class="original-price">Rs 14999.99</span>
+                <span class="discount">-13%</span>
+              </div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+          
+          <!--product 2-->
+          <div class="product-card">
+            <div class="product-badge bestseller">Bestseller</div>
+            <div class="product-image">
+              <img src="images/sneakers.png">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Casual</div>
+              <h3><a href="/products/Sneakers.html">Sneakers</a></h3>
+              <div class="product-rating">
+                <span class="stars">★★★★☆</span>
+                <span class="rating-count">(18)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">Rs 8999.99</span>
+                <span class="original-price">Rs 10999.99</span>
+                <span class="discount">-18%</span>
+              </div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+          
+          <!--product 3-->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="images/boots.png">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Formal</div>
+              <h3><a href="/products/leatherboots.html">Leather boots</a></h3>
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-count">(32)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">Rs 14999.99</span>
+              </div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+          
+          <!--product 4-->
+          <div class="product-card">
+            <div class="product-badge sale">Sale</div>
+            <div class="product-image">
+              <img src="images/loafer.png" alt="Comfort Stride Loafers">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Casual</div>
+              <h3><a href="products/loafers.html">Comfort Stride Loafers</a></h3>
+              <div class="product-rating">
+                <span class="stars">★★★★☆</span>
+                <span class="rating-count">(12)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">Rs 7999.99</span>
+                <span class="original-price">Rs 11900.99</span>
+                <span class="discount">-33%</span>
+              </div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+          
+          <!--product 5-->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="images/hiking.png" alt="Trail Blazer Hiking Boots">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Outdoor</div>
+              <h3><a href="products/hiking.html">Trail Blazer Hiking Boots</a></h3>
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-count">(7)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">Rs 16999.99</span>
+                <span class="original-price">Rs 18999.99</span>
+                <span class="discount">-11%</span>
+              </div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+          
+          <!--product 6-->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="images/slipons.png" alt="Weekend Slip-ons">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Casual</div>
+              <h3><a href="products/slipons.html">Leather Slip-ons</a></h3>
+              <div class="product-rating">
+                <span class="stars">★★★☆☆</span>
+                <span class="rating-count">(9)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">Rs 6999.99</span>
+              </div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!--product 7-->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="images/Explorerboots.png" alt="Urban Explorer Boots">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Boots</div>
+              <h3><a href="products/explorer.html">Urban Explorer Boots</a></h3>
+              <div class="product-rating">
+                <span class="stars">★★★★☆</span>
+                <span class="rating-count">(15)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">Rs 11999.99</span>
+              </div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!--product 8-->
+          <div class="product-card">
+            <div class="product-badge sale">Sale</div>
+            <div class="product-image">
+              <img src="images/converse.png" alt="Converse">
+            </div>
+            <div class="product-info">
+              <div class="product-category">Casual</div>
+              <h3><a href="products/Converse.html">Converse</a></h3>
+              <div class="product-rating">
+                <span class="stars">★★★★☆</span>
+                <span class="rating-count">(21)</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">Rs 5999.99</span>
+                <span class="original-price">Rs 7999.99</span>
+                <span class="discount">-25%</span>
+              </div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </main>
+        <!--- footer -->
+        <footer>
+          <div class="footer-content">
+            <div class="footer-column">
+              <h3>Shop</h3>
+              <ul>
+                <li><a href="products.html">Most popular</a></li>
+                <li><a href="products.html">New Arrivals</a></li>
+                <li><a href="products.html">Special Offers</a></li>
+              </ul>
+            </div>
+                
+            <div class="footer-column">
+              <h3>About Us</h3>
+              <ul>
+                <li><a href="about.html">Who we are</a></li>
+                <li><a href="about.html">Our Mission & Vision</a></li>
+                <li><a href="about.html">Our Milestones</a></li>
+                <li><a href="about.html">Meet Our Team</a></li>
+                <li><a href="about.html">Get in touch</a></li>
+              </ul>
+            </div>
+            
+            <div class="footer-column">
+              <h3>Follow Us</h3>
+              <p>Stay connected for the latest drops and style inspiration.</p>
+              <div class="social-links">
+                <a href="#" class="social-icon">FB</a>
+                <a href="#" class="social-icon">IG</a>
+                <a href="#" class="social-icon">TW</a>
+                <a href="#" class="social-icon">YT</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="copyright">
+            &copy; 2025 StepStyle. All Rights Reserved.
+          </div>
+        </footer>
+    <!--back to top button -->
+    <button class="back-to-top">↑</button>
+    <!--javascript-->
+    <script src="js/main.js"></script>
+  </body>
+</html>

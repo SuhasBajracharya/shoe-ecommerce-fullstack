@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Admin - All Reviews</h2>
+  <p class="danger">Only accessible to admin users. In insecure mode this page renders review HTML directly (Stored XSS demonstration).</p>
+  {% for r in reviews %}
+    <div class="review">
+      <strong>{{ r['author'] }}</strong> on <em>{{ r['product_name'] }}</em>
+      <div>
+        {%- if secure -%}
+          {{ r['content'] }}
+        {%- else -%}
+          {{ r['content']|safe }} {# insecure rendering #}
+        {%- endif -%}
+      </div>
+    </div>
+  {% else %}
+    <p>No reviews.</p>
+  {% endfor %}
+
+  <h3>Change admin password</h3>
+  <form method="post" action="/admin/change-password">
+    {%- if secure and request.cookies.session_id %}
+      {# When secure, a CSRF token will be included in the session and must be sent #}
+      <input type="hidden" name="csrf" value="{{ request.cookies.get('session_id') and (request.cookies.get('session_id') in [] ) }}">
+    {%- endif %}
+    <label>New password<br><input type="password" name="new_password"></label><br><br>
+    <button type="submit">Change Password</button>
+  </form>
+{% endblock %}

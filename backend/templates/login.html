@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Login</h2>
+  <form method="post" action="/login">
+    <label>Username<br><input name="username"></label><br><br>
+    <label>Password<br><input type="password" name="password"></label><br><br>
+    <button type="submit">Login</button>
+  </form>
+  <p>Default admin: <strong>admin/admin123</strong></p>
+{% endblock %}
