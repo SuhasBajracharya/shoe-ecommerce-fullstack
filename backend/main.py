@@ -211,7 +211,7 @@ def login_post(response: Response, username: str = Form(...), password: str = Fo
         cookie_args['httponly'] = True
         cookie_args['samesite'] = 'strict'
     
-    resp = JSONResponse({'success': True, 'message': 'Logged in', 'username': username})
+    resp = JSONResponse({'success': True, 'message': 'Logged in', 'username': username, 'role': row['role']})
     resp.set_cookie('session_id', sid, **{k:v for k,v in cookie_args.items() if v is not None})
     return resp
 
@@ -258,14 +258,14 @@ def add_review(request: Request, product_id: int = Form(...), content: str = For
     # Only allow logged-in users to post reviews
     user = get_current_user(request)
     if not user:
-        return HTMLResponse('Login required', status_code=401)
+        return JSONResponse({'success': False, 'message': 'Login required'}, status_code=401)
 
     # CSRF check in secure mode
     if SECURE_MODE:
         form_csrf = request.headers.get('x-csrf-token') or request.query_params.get('csrf')
         session = get_session_data(request)
         if not session or not form_csrf or form_csrf != session.get('csrf'):
-            return HTMLResponse('CSRF token missing or invalid', status_code=403)
+            return JSONResponse({'success': False, 'message': 'CSRF token missing or invalid'}, status_code=403)
 
     conn = get_db()
     cur = conn.cursor()
@@ -273,7 +273,7 @@ def add_review(request: Request, product_id: int = Form(...), content: str = For
     cur.execute('INSERT INTO reviews (product_id, author, content, created_at) VALUES (?, ?, ?, ?)', (product_id, user, content, datetime.now(timezone.utc).isoformat()))
     conn.commit()
     conn.close()
-    return RedirectResponse(url=f'/product/{product_id}', status_code=302)
+    return JSONResponse({'success': True, 'message': 'Review posted successfully'})
 
 
 @app.get('/admin/reviews', response_class=HTMLResponse)
@@ -287,11 +287,47 @@ def admin_reviews(request: Request):
     row = cur.fetchone()
     if not row or row['role'] != 'admin':
         return HTMLResponse('Forbidden', status_code=403)
-    cur.execute('SELECT r.id, r.product_id, r.author, r.content, r.created_at, p.name as product_name FROM reviews r JOIN products p ON r.product_id=p.id ORDER BY r.id DESC')
+    cur.execute('SELECT r.id, r.product_id, r.author, r.content, r.created_at, p.name as product_name FROM reviews r LEFT JOIN products p ON r.product_id=p.id ORDER BY r.id DESC')
     reviews = cur.fetchall()
     conn.close()
     # Vulnerable: content rendered directly in template when SECURE_MODE=False
     return templates.TemplateResponse('admin_reviews.html', {'request': request, 'reviews': reviews, 'secure': SECURE_MODE})
+
+
+@app.get('/api/reviews')
+def get_reviews_json(request: Request):
+    """Return reviews as JSON for the React frontend"""
+    user = get_current_user(request)
+    if not user:
+        return JSONResponse({'success': False, 'message': 'Not logged in'}, status_code=401)
+    
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute('SELECT role FROM users WHERE username=?', (user,))
+    row = cur.fetchone()
+    if not row or row['role'] != 'admin':
+        conn.close()
+        return JSONResponse({'success': False, 'message': 'Access denied'}, status_code=403)
+    
+    # LEFT JOIN to handle reviews with missing products
+    cur.execute('SELECT r.id, r.product_id, r.author, r.content, r.created_at, COALESCE(p.name, "Unknown Product") as product_name FROM reviews r LEFT JOIN products p ON r.product_id=p.id ORDER BY r.id DESC')
+    reviews = cur.fetchall()
+    conn.close()
+    
+    # Convert to list of dicts with raw content (for frontend to render with dangerouslySetInnerHTML)
+    reviews_list = [
+        {
+            'id': r['id'],
+            'product_id': r['product_id'],
+            'author': r['author'],
+            'content': r['content'],
+            'created_at': r['created_at'],
+            'product_name': r['product_name']
+        }
+        for r in reviews
+    ]
+    
+    return JSONResponse({'success': True, 'reviews': reviews_list})
 
 
 @app.post('/admin/change-password')

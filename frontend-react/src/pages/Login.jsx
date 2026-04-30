@@ -30,7 +30,7 @@ export default function Login(){
       const data = await res.json();
       
       if(res.ok && data.success){
-        login(username);
+        login(username, data.role);
         setMsg('Logged in successfully!');
         setTimeout(() => navigate('/'), 800);
       } else {

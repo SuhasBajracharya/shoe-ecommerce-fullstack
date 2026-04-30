@@ -4,6 +4,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Check if user is logged in on mount by checking if session cookie exists
@@ -13,16 +14,18 @@ export function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  const login = (username) => {
+  const login = (username, userRole = null) => {
     setUser(username);
+    setRole(userRole);
   };
 
   const logout = () => {
     setUser(null);
+    setRole(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, role, setUser, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

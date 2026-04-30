@@ -48,7 +48,26 @@ conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 
-# Add a test product if it doesn't exist
+# Create test users if they don't exist
+def user_exists(username):
+    cur.execute('SELECT COUNT(*) as c FROM users WHERE username = ?', (username,))
+    return cur.fetchone()['c'] > 0
+
+if not user_exists('admin'):
+    cur.execute(
+        'INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
+        ('admin', 'admin123', 'admin')
+    )
+    print("✓ Created admin user (admin / admin123)")
+
+if not user_exists('alice'):
+    cur.execute(
+        'INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
+        ('alice', 'password', 'user')
+    )
+    print("✓ Created alice user (alice / password)")
+
+conn.commit()
 cur.execute('SELECT COUNT(*) as c FROM products WHERE name = "Test Shoe"')
 if cur.fetchone()['c'] == 0:
     cur.execute(
@@ -71,25 +90,17 @@ if product:
             (product_id, 'alice', 'Great shoes! Very comfortable and stylish.', datetime.now(timezone.utc).isoformat())
         )
         print("✓ Added normal review from alice")
-    
-    # Add a malicious review with XSS payload
-    xss_payload = '<img src=x onerror="fetch(\'/admin/change-password\', {method:\'POST\', body: new FormData(new DOMParser().parseFromString(\'<form><input name=new_password value=hacked123></form>\', \'text/html\').querySelector(\'form\'))}).then(() => alert(\'Admin password changed to hacked123\'))">'
-    
-    cur.execute('SELECT COUNT(*) FROM reviews WHERE content LIKE ?', ('%onerror%',))
-    if cur.fetchone()[0] == 0:
-        cur.execute(
-            'INSERT INTO reviews (product_id, author, content, created_at) VALUES (?, ?, ?, ?)',
-            (product_id, 'alice', xss_payload, datetime.now(timezone.utc).isoformat())
-        )
-        print("✓ Added XSS malicious review (will execute in admin panel)")
 
 conn.commit()
 conn.close()
 
 print("\nDatabase seeded successfully!")
+print("\nDefault test accounts:")
+print("  - Username: admin, Password: admin123")
+print("  - Username: alice, Password: password")
 print("\nTo test the Stored XSS vulnerability:")
-print("1. Start the backend: uvicorn main:app --reload")
-print("2. Login as admin (admin / admin123)")
-print("3. Navigate to /admin/reviews")
-print("4. The XSS payload will execute and try to change the admin password")
-print("\nNote: This only works when SECURE_MODE = False in main.py")
+print("1. Login as a regular user (alice / password)")
+print("2. Go to Products and submit a review with an XSS payload")
+print("3. Login as admin (admin / admin123)")
+print("4. Click 'Reviews' in the header")
+print("5. The payload will execute in the admin panel")

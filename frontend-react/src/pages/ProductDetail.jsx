@@ -146,13 +146,13 @@ export default function ProductDetail() {
 
         <form onSubmit={handleSubmitReview}>
           <label style={{color:'#f7d128', display:'block', marginBottom:'10px', fontWeight:'bold'}}>
-            Your Review (HTML is allowed for testing):
+            Your Review:
           </label>
           <textarea
             value={reviewContent}
             onChange={(e) => setReviewContent(e.target.value)}
             disabled={submitting}
-            placeholder="Share your thoughts about this product... (You can test XSS payloads like: <img src=x onerror='alert(XSS)'> or other scripts)"
+            placeholder="Share your thoughts about this product..."
             style={{
               width: '100%',
               minHeight: '120px',
@@ -192,25 +192,6 @@ export default function ProductDetail() {
             {submitting ? 'Posting...' : 'Post Review'}
           </button>
         </form>
-
-        <div style={{
-          background: '#1a1817',
-          padding: '15px',
-          borderRadius: '5px',
-          marginTop: '20px',
-          borderLeft: '4px solid #f7d128',
-          color:'#ddd',
-          fontSize: '0.9rem'
-        }}>
-          <strong style={{color:'#f7d128'}}>Test Stored XSS:</strong>
-          <p>Try posting this payload to see it execute in the admin panel:</p>
-          <code style={{background:'#0a0807', padding:'10px', display:'block', marginTop:'10px', overflowX:'auto', color:'#0f0'}}>
-            &lt;img src=x onerror="alert('XSS in admin panel!')"&gt;
-          </code>
-          <p style={{marginTop:'10px', color:'#fa8072'}}>
-            ⚠️ After posting, login as admin and visit /admin/reviews to see the payload execute
-          </p>
-        </div>
       </div>
 
       {/* Reviews Section */}

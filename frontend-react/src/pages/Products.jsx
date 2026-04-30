@@ -114,39 +114,6 @@ export default function Products() {
           </div>
         ))}
       </div>
-
-      <div style={{
-        background: '#2a2527',
-        padding: '30px',
-        borderRadius: '8px',
-        border: '2px solid #f7d128',
-        marginTop: '40px'
-      }}>
-        <h3 style={{color:'#f7d128', marginBottom:'15px'}}>How to Test Stored XSS</h3>
-        <ol style={{color:'#ccc', lineHeight:'1.8'}}>
-          <li>Click on any product above</li>
-          <li>Scroll down to "Add Your Review" section</li>
-          <li>Paste an XSS payload (example provided in the form)</li>
-          <li>Click "Post Review"</li>
-          <li>Login as <strong>admin / admin123</strong></li>
-          <li>Visit <strong>/admin/reviews</strong></li>
-          <li>The XSS payload will execute in the admin panel</li>
-        </ol>
-
-        <div style={{
-          background: '#1a1817',
-          padding: '15px',
-          borderRadius: '5px',
-          marginTop: '15px',
-          borderLeft: '4px solid #f7d128',
-          color: '#0f0',
-          fontFamily: 'monospace',
-          fontSize: '0.9rem'
-        }}>
-          <strong style={{color:'#f7d128'}}>Example Payload:</strong>
-          <br/>&lt;img src=x onerror="alert('XSS Vulnerability!')"&gt;
-        </div>
-      </div>
     </main>
   );
 }

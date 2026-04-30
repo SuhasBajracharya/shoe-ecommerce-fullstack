@@ -10,6 +10,7 @@ import Research from './pages/Research';
 import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AdminReviews from './pages/AdminReviews';
 
 // Products
 import ProductConverse from './pages/ProductConverse';
@@ -37,6 +38,9 @@ function App() {
           {/* Unprotected auth routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          
+          {/* Admin routes */}
+          <Route path="/admin/reviews" element={<ProtectedRoute><AdminReviews /></ProtectedRoute>} />
           
           {/* Protected routes wrapped in Layout */}
           <Route element={<Layout />}>

@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, role, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -33,6 +33,9 @@ const Header = () => {
             <li><Link to="/blog">Blog</Link></li>
             <li><Link to="/research">Research</Link></li>
             <li><Link to="/about">About Us</Link></li>
+            {user && role === 'admin' && (
+              <li><Link to="/admin/reviews" style={{color:'#f7d128', fontWeight:'bold'}}>Reviews</Link></li>
+            )}
             {user && (
               <li>
                 <span style={{color:'#f7d128', marginRight:'10px'}}>Account</span>
