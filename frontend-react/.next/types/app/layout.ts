@@ -1,4 +1,4 @@
-// File: /mnt/shared/Islington/Year 2/4th sem/SIC/Coursework/frontend-react/src/app/layout.jsx
+// File: /home/poopie/Coursework/frontend-react/src/app/layout.jsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
