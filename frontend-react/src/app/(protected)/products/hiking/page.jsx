@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const ProductHiking = () => {
+// Server Component - product detail page
+export default function ProductHiking() {
   return (
     <>
 
@@ -45,6 +44,4 @@ const ProductHiking = () => {
 
     </>
   );
-};
-
-export default ProductHiking;
+}

@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const PortfolioIndex = () => {
+// Server Component - team portfolio
+export default function PortfolioSuhas() {
   return (
     <>
 
@@ -105,6 +104,4 @@ const PortfolioIndex = () => {
       </section>
     </>
   );
-};
-
-export default PortfolioIndex;
+}

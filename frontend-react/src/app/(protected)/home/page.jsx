@@ -1,8 +1,33 @@
-'use client';
-
 import Link from 'next/link';
+import NewsletterForm from '@/components/NewsletterForm';
 
-const Home = () => {
+// This is now a Server Component - no 'use client' directive
+export default function Home() {
+  // Static featured products - could be fetched from backend if needed
+  const featuredProducts = [
+    {
+      id: 1,
+      name: 'Running Shoes',
+      price: 'Rs 12999.99',
+      image: '/images/runnungshoes.webp',
+      alt: 'Running Shoes'
+    },
+    {
+      id: 2,
+      name: 'Urban Explorer Boots',
+      price: 'Rs 11999.99',
+      image: '/images/Explorerboots.png',
+      alt: 'Urban Explorer Boots'
+    },
+    {
+      id: 3,
+      name: 'Comfort Stride Loafers',
+      price: 'Rs 7999.99',
+      image: '/images/loafer.png',
+      alt: 'Comfort Stride Loafers'
+    }
+  ];
+
   return (
     <>
       <div className="hero">
@@ -16,52 +41,26 @@ const Home = () => {
       <section className="featured-products">
         <h2>Trending Now</h2>
         <div className="product-grid">
-
-          <div className="product-card">
-            <div className="product-image">
-              <img src="/images/runnungshoes.webp" alt="Running Shoes" />
+          {featuredProducts.map((product) => (
+            <div key={product.id} className="product-card">
+              <div className="product-image">
+                <img src={product.image} alt={product.alt} />
+              </div>
+              <div className="product-info">
+                <h3>{product.name}</h3>
+                <div className="price">{product.price}</div>
+                <button className="add-to-cart">Add to Cart</button>
+              </div>
             </div>
-            <div className="product-info">
-              <h3>Running Shoes</h3>
-              <div className="price">Rs 12999.99</div>
-              <button className="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
-
-          <div className="product-card">
-            <div className="product-image">
-              <img src="/images/Explorerboots.png" alt="Urban Explorer Boots" />
-            </div>
-            <div className="product-info">
-              <h3>Urban Explorer Boots</h3>
-              <div className="price">Rs 11999.99</div>
-              <button className="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
-
-          <div className="product-card">
-            <div className="product-image">
-              <img src="/images/loafer.png" alt="Comfort Stride Loafers" />
-            </div>
-            <div className="product-info">
-              <h3>Comfort Stride Loafers</h3>
-              <div className="price">Rs 7999.99</div>
-              <button className="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       <section className="newsletter">
         <h2>Join The Movement</h2>
         <p>Subscribe for early access to our limited collections</p>
-        <form className="newsletter-form">
-          <input type="email" placeholder="Enter your email address" required />
-          <button type="submit">Subscribe</button>
-        </form>
+        <NewsletterForm />
       </section>
     </>
   );
-};
-
-export default Home;
+}

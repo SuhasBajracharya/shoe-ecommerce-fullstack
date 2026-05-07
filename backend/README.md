@@ -2,7 +2,9 @@
 
 This backend is an intentionally vulnerable FastAPI application for local, educational use only. It demonstrates Stored XSS and CSRF vulnerabilities and provides a `SECURE_MODE` toggle to switch to safer behavior.
 
-Warning: Run this only on localhost in an isolated environment.
+**⚠️ Warning:** Run this only on localhost in an isolated environment.
+
+**Frontend:** Now using Next.js 15 (migrated from Vite)
 
 Requirements
  - Python 3.10+

@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const ProductLoafers = () => {
+// Server Component - product detail page
+export default function ProductLoafers() {
   return (
     <>
 
@@ -45,6 +44,4 @@ const ProductLoafers = () => {
 
     </>
   );
-};
-
-export default ProductLoafers;
+}

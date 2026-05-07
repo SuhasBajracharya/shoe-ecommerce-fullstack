@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const ProductLeatherboots = () => {
+// Server Component - product detail page
+export default function ProductLeatherBoots() {
   return (
     <>
 
@@ -45,6 +44,4 @@ const ProductLeatherboots = () => {
 
     </>
   );
-};
-
-export default ProductLeatherboots;
+}

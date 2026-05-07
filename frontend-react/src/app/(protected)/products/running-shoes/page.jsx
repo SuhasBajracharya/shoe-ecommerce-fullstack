@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const ProductRunnningshoes = () => {
+// Server Component - product detail page
+export default function ProductRunningShoes() {
   return (
     <>
 
@@ -45,6 +44,4 @@ const ProductRunnningshoes = () => {
 
     </>
   );
-};
-
-export default ProductRunnningshoes;
+}

@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const ProductConverse = () => {
+// Server Component - product detail page
+export default function ProductConverse() {
   return (
     <>
 
@@ -45,6 +44,4 @@ const ProductConverse = () => {
 
     </>
   );
-};
-
-export default ProductConverse;
+}

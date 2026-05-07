@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const PortfolioOsan = () => {
+// Server Component - team portfolio
+export default function PortfolioOsan() {
   return (
     <>
 
@@ -105,6 +104,4 @@ const PortfolioOsan = () => {
       </section>
     </>
   );
-};
-
-export default PortfolioOsan;
+}

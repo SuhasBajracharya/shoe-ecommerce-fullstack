@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const ProductExplorer = () => {
+// Server Component - product detail page
+export default function ProductExplorer() {
   return (
     <>
 
@@ -45,6 +44,4 @@ const ProductExplorer = () => {
 
     </>
   );
-};
-
-export default ProductExplorer;
+}

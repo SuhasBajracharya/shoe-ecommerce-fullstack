@@ -1,8 +1,8 @@
-'use client';
-
 import Link from 'next/link';
 
-const PortfolioAditya = () => {
+// Server Component - team portfolio
+
+export default function PortfolioAditya() {
   return (
     <>
 
@@ -104,6 +104,4 @@ This hands-on project helped me deepen my understanding of real-world attack vec
       </section>
     </>
   );
-};
-
-export default PortfolioAditya;
+}

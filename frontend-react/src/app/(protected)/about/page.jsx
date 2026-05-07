@@ -1,11 +1,14 @@
-'use client';
-
 import Link from 'next/link';
 
-const About = () => {
+// Server Component - no client interactivity needed
+export const metadata = {
+  title: 'About | StepStyle',
+  description: 'Learn about StepStyle, our mission, and our team',
+};
+
+export default function About() {
   return (
     <>
-
       {/* about Banner  */}
       <div className="about-banner">
         <div className="banner-content">

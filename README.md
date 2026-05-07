@@ -1,46 +1,49 @@
 # Shoe E-Commerce Web Application with Intentional Vulnerabilities
 
-A modern web application demonstrating **Stored XSS (Cross-Site Scripting)** vulnerability for educational cybersecurity purposes. Built with React/Vite frontend and FastAPI backend.
+A web application demonstrating **multiple security vulnerabilities** for educational cybersecurity purposes. Built with **Next.js 15** (App Router) frontend and FastAPI backend.
 
 ## Project Overview
 
-This is a shoe e-commerce platform with intentional security vulnerabilities designed for a **cybersecurity coursework lab**. The application allows users to:
+This is a shoe e-commerce platform designed for **cybersecurity coursework labs** with intentional vulnerabilities:
 
-- Register and login
-- Browse shoe products with images
-- Submit product reviews
-- Administrators can view all reviews
+1. **Stored XSS (Cross-Site Scripting)** - Backend template injection
+2. **React Server Components Prototype Pollution (CVE-2025-55182 style)** - Server Action exploitation
 
-**⚠️ WARNING:** This application contains intentional security vulnerabilities (Stored XSS). It is designed for educational/demonstration purposes only and should **NOT** be used in production.
+**⚠️ WARNING:** This application contains intentional security vulnerabilities for educational purposes only. Do NOT use in production.
 
 ## Technology Stack
 
 **Frontend:**
-- React 18 with Vite
-- React Router v7.14.1
+- React 19 with Next.js 15 (App Router & RSC)
 - Context API for state management
-- Dark theme styling with yellow accents
+- Dark theme styling
 
 **Backend:**
 - FastAPI (Python)
 - SQLite database
 - Jinja2 templating
-- Cookie-based sessions
 
 ## Project Structure
 
 ```
 .
-├── frontend-react/          # React application
+├── frontend-react/          # Next.js application (migrated from Vite)
 │   ├── src/
-│   │   ├── pages/          # Page components (Home, Products, ProductDetail, etc.)
-│   │   ├── components/     # Reusable components (Header, Footer, ProtectedRoute)
-│   │   ├── context/        # React Context (AuthContext)
-│   │   ├── App.jsx         # Main routing configuration
-│   │   └── index.css       # Global styles
+│   │   ├── app/           # Next.js App Router
+│   │   │   ├── (auth)/    # Auth route group (public: login, register)
+│   │   │   ├── (protected)/  # Protected route group with layout
+│   │   │   └── layout.jsx # Root layout with AuthProvider
+│   │   ├── components/    # Reusable components (Header, Footer, etc.)
+│   │   ├── context/       # React Context (AuthContext)
+│   │   ├── hooks/         # Custom hooks (useAuth)
+│   │   ├── index.css      # Global styles
+│   │   └── app.css        # Root app styles
 │   ├── public/
-│   │   └── images/         # Product images
-│   ├── vite.config.js      # Vite dev server with API proxy
+│   │   └── images/        # Product images
+│   ├── middleware.js      # Authentication middleware
+│   ├── next.config.js     # Next.js configuration with API rewrites
+│   ├── jsconfig.json      # Path aliases (@/)
+│   ├── .env.local         # Environment variables
 │   └── package.json
 │
 └── backend/                 # FastAPI application
@@ -50,18 +53,20 @@ This is a shoe e-commerce platform with intentional security vulnerabilities des
     ├── templates/
     │   └── admin_reviews.html  # Admin panel template
     ├── requirements.txt
-    └── README.md
-```
+    └── README.md│
+└── payloads/                # CVE-2025-55182 Exploit (Cybersecurity Lab)
+    ├── exploit.py          # Prototype pollution POC script
+    └── targets.txt         # Target URLs for exploitation```
 
 ## Setup Instructions
 
 ### Prerequisites
 
-- Node.js (v16+) and npm
-- Python 3.8+
+- Node.js (v18+) and npm
+- Python 3.10+
 - Git
 
-### Frontend Setup
+### Frontend Setup (Next.js)
 
 ```bash
 cd frontend-react
@@ -69,7 +74,7 @@ npm install
 npm run dev
 ```
 
-The frontend will start on **http://localhost:5173**
+The frontend will start on **http://localhost:3000**
 
 ### Backend Setup
 
@@ -84,22 +89,19 @@ The backend will start on **http://localhost:8000**
 
 ## Running the Application
 
-1. **Start Backend** (keep terminal open):
+1. **Start Backend**:
    ```bash
    cd backend
    python -m uvicorn main:app --reload
    ```
 
-2. **Start Frontend** (in new terminal):
+2. **Start Frontend** (new terminal):
    ```bash
    cd frontend-react
    npm run dev
    ```
 
-3. **Open in Browser**:
-   ```
-   http://localhost:5173
-   ```
+3. **Access**: http://localhost:3000
 
 ## Default Test Accounts
 
@@ -124,134 +126,49 @@ This application demonstrates a **Stored XSS (Cross-Site Scripting)** vulnerabil
    ```
 6. **Click "Post Review"**
 7. **Logout and login as admin** (`admin` / `admin123`)
-8. **Navigate to** `http://localhost:5173/admin/reviews`
+8. **Navigate to** `/admin/reviews`
 9. **Observe:** The JavaScript payload executes in the admin's browser (alert popup appears)
 
 ### Why This Vulnerability Exists:
 
-- User input (reviews) is stored in the database **without sanitization**
-- The admin panel renders reviews using Jinja2's `|safe` filter with `SECURE_MODE = False`
-- This allows arbitrary HTML/JavaScript to execute when the admin views reviews
+- User input is stored without sanitization
+- Admin panel renders reviews with `|safe` filter (raw HTML)
+- No output encoding on display
 
-### Security Issues Demonstrated:
+---
 
-- ✗ **Input Validation:** No sanitization of user input
-- ✗ **Output Encoding:** Reviews rendered as raw HTML with `|safe` filter
-- ✗ **Authentication:** Weak credentials (plaintext comparison)
-- ✗ **Session Management:** Predictable session IDs
-- ✗ **CSRF Protection:** No CSRF tokens (when `SECURE_MODE = False`)
+## CVE-2025-55182: React Server Components Prototype Pollution
+
+This application also demonstrates a **prototype pollution vulnerability in Next.js Server Actions** via unsafe FormData handling.
+
+### Vulnerability Location:
+
+- **Server Action:** `frontend-react/src/lib/actions.js` - `subscribeNewsletter()`
+- **Vulnerable Component:** `frontend-react/src/components/NewsletterForm.jsx`
+
+### Issues:
+
+- No input validation in Server Action
+- Uses `Object.assign()` to merge untrusted FormData
+- Allows `__proto__` and `constructor.prototype` field injection
+- No whitelist of allowed fields
+
+### Testing:
+
+Use the CVE-2025-55182 POC script to send crafted payloads targeting the newsletter form endpoint. See [frontend-react/README.md](frontend-react/README.md) for detailed exploitation steps.
+
+### How to Fix:
+
+- Validate input with schema (Zod, Joi)
+- Reject fields containing `__proto__`, `constructor`, `prototype`
+- Use explicit field whitelisting
+- Avoid `Object.assign()` with untrusted data
+
+---
 
 ## Secure Mode
 
-The backend includes a `SECURE_MODE` flag in `backend/main.py`:
-
-```python
-SECURE_MODE = False  # Set to True for secure mode
-```
-
-When `SECURE_MODE = True`:
-- Passwords are hashed with bcrypt
-- Reviews are HTML-escaped when rendered
-- CSRF token validation is enabled
-- The vulnerability is mitigated
-
-To enable secure mode:
-```python
-SECURE_MODE = True
-```
-
-Then restart the backend server.
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/register` | Register new user |
-| POST | `/login` | User login |
-| POST | `/logout` | User logout |
-| GET | `/products` | List all products (HTML) |
-| GET | `/product/{id}` | Get product details (HTML) |
-| POST | `/add-review` | Submit product review |
-| GET | `/admin/reviews` | View all reviews (Admin panel) |
-
-## Key Files
-
-- **[frontend-react/src/App.jsx](frontend-react/src/App.jsx)** - Main routing with protected routes
-- **[frontend-react/src/pages/ProductDetail.jsx](frontend-react/src/pages/ProductDetail.jsx)** - Product detail with review form
-- **[frontend-react/src/context/AuthContext.jsx](frontend-react/src/context/AuthContext.jsx)** - Authentication state management
-- **[backend/main.py](backend/main.py)** - FastAPI application with vulnerable endpoints
-- **[backend/templates/admin_reviews.html](backend/templates/admin_reviews.html)** - Admin panel template
-- **[backend/seed_db.py](backend/seed_db.py)** - Database initialization
-
-## Database Schema
-
-### Users Table
-```sql
-CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
-);
-```
-
-### Products Table
-```sql
-CREATE TABLE products (
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT
-);
-```
-
-### Reviews Table
-```sql
-CREATE TABLE reviews (
-    id INTEGER PRIMARY KEY,
-    product_id INTEGER NOT NULL,
-    username TEXT NOT NULL,
-    content TEXT NOT NULL,
-    FOREIGN KEY(product_id) REFERENCES products(id)
-);
-```
-
-## Troubleshooting
-
-### Frontend shows "Cannot connect to backend"
-- Ensure backend is running on port 8000
-- Check that Vite proxy configuration in `vite.config.js` is correct
-- Clear browser cache and restart dev server
-
-### Login/Register returns error
-- Verify backend server is running
-- Check browser console for error messages
-- Ensure session cookie is being set
-
-### Images not displaying on Products page
-- Verify image files exist in `frontend-react/public/images/`
-- Check console for 404 errors on image requests
-- Ensure correct file paths in `ProductDetail.jsx`
-
-### XSS payload not executing on admin panel
-- Ensure `SECURE_MODE = False` in `backend/main.py`
-- Confirm you're viewing `/admin/reviews` as admin user
-- Try simple payload: `<img src=x onerror="alert(1)">`
-- Check browser console for errors
-
-## Important Notes
-
-- ⚠️ **For Educational Use Only:** This application is intentionally vulnerable and should never be deployed to production
-- **Both servers must be running** for the application to work
-- **Session data is in-memory:** Restarting the backend will logout all sessions
-- **Database is reset:** Running `seed_db.py` will create a fresh database with test data
-
-## Learning Objectives
-
-This project demonstrates:
-1. How Stored XSS vulnerabilities work
-2. The importance of input validation and output encoding
-3. Why secure development practices are critical
-4. How authentication and session management should be implemented
-5. The difference between secure and insecure code
+The backend includes a `SECURE_MODE` flag in `backend/main.py`. Set to `True` to mitigate vulnerabilities (passwords hashed, reviews escaped, CSRF enabled).
 
 ## Further Reading
 

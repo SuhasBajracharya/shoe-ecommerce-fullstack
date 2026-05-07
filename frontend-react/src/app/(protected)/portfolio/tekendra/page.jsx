@@ -1,8 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 
-const PortfolioTekendra = () => {
+// Server Component - team portfolio
+export default function PortfolioTekendra() {
   return (
     <>
 
@@ -84,6 +83,4 @@ const PortfolioTekendra = () => {
 
     </>
   );
-};
-
-export default PortfolioTekendra;
+}

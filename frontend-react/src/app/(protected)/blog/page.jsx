@@ -1,14 +1,14 @@
-'use client';
-
 import Link from 'next/link';
 
-const Blog = () => {
+// Server Component - content-focused, no client interactivity
+export const metadata = {
+  title: 'Blog | StepStyle',
+  description: 'Read about technology trends in footwear',
+};
+
+export default function Blog() {
   return (
     <>
-
-      {/* header and nav wrapper    */}
-
-
       {/* blog banner  */}
       <div className="blog-banner">
         <h1>StepStyle Blog</h1>
