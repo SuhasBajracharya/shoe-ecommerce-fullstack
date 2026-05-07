@@ -1,10 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
-import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+'use client';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 const Header = () => {
-  const { user, role, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user, role, logout } = useAuth();
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
@@ -15,26 +18,26 @@ const Header = () => {
       console.error('Logout error:', err);
     }
     logout();
-    navigate('/login');
+    router.push('/login');
   };
 
   return (
     <header>
       <div className="logo-container">
-        <Link to="/">
+        <Link href="/">
           <img src="/images/logo.png" alt="StepStyle Logo" />
         </Link>
       </div>
       <div className="nav-container">
         <nav>
           <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/products">Products</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/research">Research</Link></li>
-            <li><Link to="/about">About Us</Link></li>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/products">Products</Link></li>
+            <li><Link href="/blog">Blog</Link></li>
+            <li><Link href="/research">Research</Link></li>
+            <li><Link href="/about">About Us</Link></li>
             {user && role === 'admin' && (
-              <li><Link to="/admin/reviews" style={{color:'#f7d128', fontWeight:'bold'}}>Reviews</Link></li>
+              <li><Link href="/admin/reviews" style={{color:'#f7d128', fontWeight:'bold'}}>Reviews</Link></li>
             )}
             {user && (
               <li>

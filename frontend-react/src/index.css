@@ -95,7 +95,7 @@ nav ul li a:hover {
 
 /* Hero Section - Updated to match the provided image */
 .hero {
-  background: url('../images/hero.png') no-repeat center center;
+  background: url('/images/hero.png') no-repeat center center;
   animation: fadeInUp 1s ease;
   background-size: cover;
   width: 100%;

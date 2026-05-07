@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import React from 'react';
 
 const Footer = () => {
@@ -8,20 +10,20 @@ const Footer = () => {
         <div className="footer-column">
           <h3>Shop</h3>
           <ul>
-            <li><Link to="/products">Most popular</Link></li>
-            <li><Link to="/products">New Arrivals</Link></li>
-            <li><Link to="/products">Special Offers</Link></li>
+            <li><Link href="/products">Most popular</Link></li>
+            <li><Link href="/products">New Arrivals</Link></li>
+            <li><Link href="/products">Special Offers</Link></li>
           </ul>
         </div>
             
         <div className="footer-column">
           <h3>About Us</h3>
           <ul>
-            <li><Link to="/about">Who we are</Link></li>
-            <li><Link to="/about">Our Mission & Vision</Link></li>
-            <li><Link to="/about">Our Milestones</Link></li>
-            <li><Link to="/about">Meet Our Team</Link></li>
-            <li><Link to="/about">Get in touch</Link></li>
+            <li><Link href="/about">Who we are</Link></li>
+            <li><Link href="/about">Our Mission & Vision</Link></li>
+            <li><Link href="/about">Our Milestones</Link></li>
+            <li><Link href="/about">Meet Our Team</Link></li>
+            <li><Link href="/about">Get in touch</Link></li>
           </ul>
         </div>
         
