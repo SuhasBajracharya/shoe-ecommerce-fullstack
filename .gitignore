@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv
+
+# Next.js
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS & IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Databases
+*.db
+*.sqlite3
+app.db
+
+# Logs
+*.log
