@@ -19,16 +19,3 @@ export default function Products() {
     </main>
   );
 }
-                  fontWeight: 'bold',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                View Details
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-    </main>
-  );
-}

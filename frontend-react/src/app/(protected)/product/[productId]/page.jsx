@@ -96,10 +96,3 @@ export default function ProductDetail({ params }) {
     </main>
   );
 }
-        {reviews.length === 0 && (
-          <p style={{ color: '#ccc' }}>No reviews yet. Be the first to review!</p>
-        )}
-      </div>
-    </main>
-  );
-}

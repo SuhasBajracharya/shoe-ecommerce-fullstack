@@ -226,6 +226,32 @@ def logout(response: Response, request: Request):
     return resp
 
 
+@app.get('/api/check-session')
+def check_session(request: Request):
+    """Check if user has a valid session"""
+    sid = request.cookies.get('session_id')
+    if not sid or sid not in SESSIONS:
+        raise HTTPException(status_code=401, detail='Not authenticated')
+    
+    session_data = SESSIONS[sid]
+    username = session_data.get('username')
+    
+    # Get user role from database
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute('SELECT role FROM users WHERE username=?', (username,))
+    row = cur.fetchone()
+    conn.close()
+    
+    if not row:
+        raise HTTPException(status_code=401, detail='User not found')
+    
+    return JSONResponse({
+        'username': username,
+        'role': row['role']
+    })
+
+
 @app.get('/products', response_class=HTMLResponse)
 def list_products(request: Request):
     conn = get_db()

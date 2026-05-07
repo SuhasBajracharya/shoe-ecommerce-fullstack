@@ -1,8 +1,24 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/(auth)/register/page": "app/(auth)/register/page.js",
+  "/(protected)/home/page": "app/(protected)/home/page.js",
   "/(protected)/page": "app/(protected)/page.js",
-  "/(protected)/products/page": "app/(protected)/products/page.js",
+  "/(protected)/portfolio/aditya/page": "app/(protected)/portfolio/aditya/page.js",
+  "/(protected)/portfolio/osan/page": "app/(protected)/portfolio/osan/page.js",
+  "/(protected)/portfolio/suhas/page": "app/(protected)/portfolio/suhas/page.js",
+  "/(protected)/portfolio/tekendra/page": "app/(protected)/portfolio/tekendra/page.js",
   "/(protected)/product/[productId]/page": "app/(protected)/product/[productId]/page.js",
-  "/(protected)/blog/page": "app/(protected)/blog/page.js",
+  "/(protected)/products/converse/page": "app/(protected)/products/converse/page.js",
+  "/(protected)/products/explorer/page": "app/(protected)/products/explorer/page.js",
+  "/(protected)/products/hiking/page": "app/(protected)/products/hiking/page.js",
+  "/(protected)/products/leather-boots/page": "app/(protected)/products/leather-boots/page.js",
+  "/(protected)/products/loafers/page": "app/(protected)/products/loafers/page.js",
+  "/(protected)/products/running-shoes/page": "app/(protected)/products/running-shoes/page.js",
+  "/(protected)/products/sneakers/page": "app/(protected)/products/sneakers/page.js",
   "/(protected)/research/page": "app/(protected)/research/page.js",
-  "/(protected)/about/page": "app/(protected)/about/page.js"
+  "/(protected)/admin/reviews/page": "app/(protected)/admin/reviews/page.js",
+  "/(protected)/about/page": "app/(protected)/about/page.js",
+  "/(protected)/blog/page": "app/(protected)/blog/page.js",
+  "/(protected)/products/page": "app/(protected)/products/page.js"
 }

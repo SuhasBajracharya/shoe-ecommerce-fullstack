@@ -1,4 +1,4 @@
-// File: /home/poopie/Coursework/frontend-react/src/app/(protected)/about/page.jsx
+// File: /home/poopie/SIC_Coursework/frontend-react/src/app/(protected)/about/page.jsx
 import * as entry from '../../../../../src/app/(protected)/about/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
