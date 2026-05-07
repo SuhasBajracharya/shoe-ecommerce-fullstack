@@ -7,9 +7,14 @@ const nextConfig = {
     
     return {
       beforeFiles: [
+        // Specific API routes that exist in FastAPI
         {
-          source: '/api/:path*',
-          destination: `${backendUrl}/api/:path*`,
+          source: '/api/check-session',
+          destination: `${backendUrl}/api/check-session`,
+        },
+        {
+          source: '/api/reviews',
+          destination: `${backendUrl}/api/reviews`,
         },
       ],
       fallback: [
@@ -40,10 +45,6 @@ const nextConfig = {
         {
           source: '/admin/reviews',
           destination: `${backendUrl}/admin/reviews`,
-        },
-        {
-          source: '/api/check-session',
-          destination: `${backendUrl}/api/check-session`,
         },
       ],
     };

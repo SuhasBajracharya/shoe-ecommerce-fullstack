@@ -1,12 +1,1 @@
-http://localhost:3000
-http://localhost:3000/home
-http://localhost:3000/products
-http://localhost:3000/about
-http://localhost:3000/blog
-http://localhost:3000/research
-http://localhost:3000/portfolio/aditya
-http://localhost:3000/portfolio/osan
-http://localhost:3000/portfolio/suhas
-http://localhost:3000/portfolio/tekendra
-http://localhost:3000/admin/reviews
-http://localhost:3000/product/1
+http://localhost:3000/api/subscribe
