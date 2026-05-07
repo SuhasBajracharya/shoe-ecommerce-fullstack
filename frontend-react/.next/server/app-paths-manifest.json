@@ -1,8 +1,0 @@
-{
-  "/(protected)/page": "app/(protected)/page.js",
-  "/(protected)/home/page": "app/(protected)/home/page.js",
-  "/(protected)/products/page": "app/(protected)/products/page.js",
-  "/(protected)/blog/page": "app/(protected)/blog/page.js",
-  "/(protected)/research/page": "app/(protected)/research/page.js",
-  "/(protected)/about/page": "app/(protected)/about/page.js"
-}
